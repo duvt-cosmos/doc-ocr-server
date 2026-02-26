@@ -51,6 +51,16 @@ jobs:
     environment: production
 
     steps:
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '24'
+        cache: gradle
+
+    - name: Build with Gradle
+      run: ./gradlew build
+      
     - name: Checkout
       uses: actions/checkout@v4
 

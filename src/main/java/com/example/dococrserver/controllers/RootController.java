@@ -9,4 +9,9 @@ public class RootController {
     String helloWorld() {
         return "Hello world v4";
     }
+
+    @GetMapping("/health")
+    String health() {
+        return "OK";
+    }
 }

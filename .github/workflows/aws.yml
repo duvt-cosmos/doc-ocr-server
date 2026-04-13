@@ -31,6 +31,7 @@ on:
     branches: [ "main" ]
 
 env:
+  SSH_ENABLED: false                             # disable ssh tunneling when building because the .pem file won't be pushed
   AWS_REGION: us-east-1                          # set this to your preferred AWS region, e.g. us-west-1
   ECR_REPOSITORY: backend/ocr-server             # set this to your Amazon ECR repository name
   ECS_SERVICE: doc-ocr-server-service            # set this to your Amazon ECS service name

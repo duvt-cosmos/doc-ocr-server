@@ -39,6 +39,7 @@ dependencies {
     // Replace the following with the starter dependencies of specific modules you wish to use
 //    implementation 'io.awspring.cloud:spring-cloud-aws-starter-sqs'
     implementation 'software.amazon.jdbc:aws-advanced-jdbc-wrapper:3.2.0'
+    implementation 'com.hierynomus:sshj:0.38.0'
 }
 
 tasks.named('test') {

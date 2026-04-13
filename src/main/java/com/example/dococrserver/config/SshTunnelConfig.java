@@ -8,6 +8,7 @@ import lombok.Data;
 @Configuration
 @ConfigurationProperties(prefix = "ssh")
 public class SshTunnelConfig {
+    private boolean enabled;
     private Bastion bastion;
     private int localPort = 5432;
     private String remoteHost;
@@ -16,6 +17,7 @@ public class SshTunnelConfig {
     @Data
     public static class Bastion {
         private String host;
+        private Integer port;
         private String user;
         private String keyPath;
     }

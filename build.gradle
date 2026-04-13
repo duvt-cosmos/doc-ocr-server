@@ -40,6 +40,8 @@ dependencies {
 //    implementation 'io.awspring.cloud:spring-cloud-aws-starter-sqs'
     implementation 'software.amazon.jdbc:aws-advanced-jdbc-wrapper:3.2.0'
     implementation 'com.hierynomus:sshj:0.38.0'
+    implementation 'io.github.cdimascio:dotenv-java:3.0.0'
+
 }
 
 tasks.named('test') {

@@ -16,7 +16,8 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        return ResponseEntity.ok(userService.createUser(user));
+        User createdUser = userService.createUser(user);
+        return ResponseEntity.status(org.springframework.http.HttpStatus.CREATED).body(createdUser);
     }
 
     @GetMapping("/{id}")

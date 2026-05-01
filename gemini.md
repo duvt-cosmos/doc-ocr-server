@@ -5,7 +5,7 @@ This project is part of an AWS practice workspace, specifically a Spring Boot se
 ## Context and Purpose
 - **Project Name:** doc-ocr-server
 - **Description:** A Java Spring Boot REST API for processing and tracking Document OCR tasks.
-- **Environment:** Designed for AWS deployment, specifically interacting with AWS RDS (Postgres) and eventually SQS/S3.
+- **Environment:** Designed for AWS deployment, specifically interacting with AWS RDS (Postgres) and deployed to Amazon ECS via GitHub Actions.
 
 ## Tech Stack
 - **Language:** Java 24
@@ -15,14 +15,16 @@ This project is part of an AWS practice workspace, specifically a Spring Boot se
 - **Build Tool:** Gradle
 - **Boilerplate Reduction:** Lombok (`@RequiredArgsConstructor`, `@Data`, `@Slf4j`, etc.)
 - **Containerization:** Docker & Docker Compose (`spring-boot-docker-compose`)
+- **Utilities:** `dotenv-java` for environment variables, `sshj` for SSH operations.
 
 ## Code Style & Architectural Guidelines
 
 ### 1. Spring Boot Architecture
 - **Controllers:** `com.example.dococrserver.controllers` -> Keep controllers thin. They should primarily handle routing, parameter validation, and mapping responses.
-- **Services:** `com.example.dococrserver.services` -> Place all business logic, OCR orchestrations, and AWS interactions (e.g., SQS publishing) here.
-- **Repositories:** `com.example.dococrserver.repositories` -> Use Spring Data JPA Interfaces for DB interactions. Prefix custom queries or projections appropriately.
-- **Models/Entities:** `com.example.dococrserver.models` -> Define JPA `@Entity` classes here.
+- **Services:** `com.example.dococrserver.service` -> Place all business logic, OCR orchestrations, and AWS interactions (e.g., SQS publishing) here.
+- **Repositories:** `com.example.dococrserver.repository` -> Use Spring Data JPA Interfaces for DB interactions. Prefix custom queries or projections appropriately.
+- **Models/Entities:** `com.example.dococrserver.entity` -> Define JPA `@Entity` classes here.
+- **Configuration:** `com.example.dococrserver.config` -> Place Spring configuration classes here.
 
 ### 2. General Java Practices
 - **Lombok:** Always use Lombok for getters, setters, constructors, and logging to reduce boilerplate. Example: Use `@RequiredArgsConstructor` with `final` fields for Dependency Injection instead of `@Autowired`.
@@ -32,11 +34,12 @@ This project is part of an AWS practice workspace, specifically a Spring Boot se
 
 ### 3. AWS Integration Specifics
 - This project leverages AWS Advanced JDBC Wrapper. Be mindful of multi-az failover capabilities when dealing with RDS.
-- Cloud dependencies (`spring-cloud-aws-dependencies`) might be present. Assume standard AWS SDK v2 integrations.
+- **CI/CD:** Deployed to Amazon ECS via GitHub Actions (`.github/workflows/aws.yml`). Uses OIDC for AWS authentication.
+- Cloud dependencies (`spring-cloud-aws-dependencies`) might be used in the future. Assume standard AWS SDK v2 integrations.
 
 ### 4. Database Config
 - Database properties are configured in `application.properties`. 
-- Passwords and secrets might use environment variables. Prefer `application.yml` or `application.properties` with `${ENV_VAR}` interpolations for sensitive data.
+- Passwords and secrets might use environment variables. Prefer `application.yml` or `application.properties` with `${ENV_VAR}` interpolations for sensitive data. The `dotenv-java` library is used to load variables from a `.env` file.
 
 ## Building and Running
 ```bash
